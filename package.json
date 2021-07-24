@@ -6,7 +6,7 @@
   "module": "dist-es/index.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:missive/emoji-mart.git"
+    "url": "git@github.com:GAntoine/emoji-mart.git"
   },
   "keywords": [
     "react",
@@ -16,9 +16,9 @@
   "author": "Etienne Lemay",
   "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/missive/emoji-mart/issues"
+    "url": "https://github.com/GAntoine/emoji-mart/issues"
   },
-  "homepage": "https://github.com/missive/emoji-mart",
+  "homepage": "https://github.com/GAntoine/emoji-mart",
   "dependencies": {
     "@babel/runtime": "^7.0.0",
     "prop-types": "^15.6.0"

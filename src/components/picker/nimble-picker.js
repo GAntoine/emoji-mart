@@ -67,13 +67,25 @@ export default class NimblePicker extends React.PureComponent {
     this.state = { firstRender: true }
 
     this.categories = []
+    if (props.dataUrl) {
+      fetch(props.dataUrl)
+        .then(response => response.json())
+        .then(data => this.data = data)
+        .catch(this.completeConstructor)
+        .finally(this.completeConstructor)
+    } else {
+      this.completeConstructor()
+    }
+  }
+
+  completeConstructor() { 
     let allCategories = [].concat(this.data.categories)
 
-    if (props.custom.length > 0) {
+    if (this.props.custom.length > 0) {
       const customCategories = {}
       let customCategoriesCreated = 0
 
-      props.custom.forEach((emoji) => {
+      this.props.custom.forEach((emoji) => {
         if (!customCategories[emoji.customCategory]) {
           customCategories[emoji.customCategory] = {
             id: emoji.customCategory
@@ -107,9 +119,9 @@ export default class NimblePicker extends React.PureComponent {
 
     this.hideRecent = true
 
-    if (props.include != undefined) {
+    if (this.props.include != undefined) {
       allCategories.sort((a, b) => {
-        if (props.include.indexOf(a.id) > props.include.indexOf(b.id)) {
+        if (this.props.include.indexOf(a.id) > this.props.include.indexOf(b.id)) {
           return 1
         }
 
@@ -124,24 +136,24 @@ export default class NimblePicker extends React.PureComponent {
     ) {
       const category = allCategories[categoryIndex]
       let isIncluded =
-        props.include && props.include.length
-          ? props.include.indexOf(category.id) > -1
+        this.props.include && this.props.include.length
+          ? this.props.include.indexOf(category.id) > -1
           : true
       let isExcluded =
-        props.exclude && props.exclude.length
-          ? props.exclude.indexOf(category.id) > -1
+        this.props.exclude && this.props.exclude.length
+          ? this.props.exclude.indexOf(category.id) > -1
           : false
       if (!isIncluded || isExcluded) {
         continue
       }
 
-      if (props.emojisToShowFilter) {
+      if (this.props.emojisToShowFilter) {
         let newEmojis = []
 
         const { emojis } = category
         for (let emojiIndex = 0; emojiIndex < emojis.length; emojiIndex++) {
           const emoji = emojis[emojiIndex]
-          if (props.emojisToShowFilter(this.data.emojis[emoji] || emoji)) {
+          if (this.props.emojisToShowFilter(this.data.emojis[emoji] || emoji)) {
             newEmojis.push(emoji)
           }
         }
@@ -161,12 +173,12 @@ export default class NimblePicker extends React.PureComponent {
     }
 
     let includeRecent =
-      props.include && props.include.length
-        ? props.include.indexOf(this.RECENT_CATEGORY.id) > -1
+      this.props.include && this.props.include.length
+        ? this.props.include.indexOf(this.RECENT_CATEGORY.id) > -1
         : true
     let excludeRecent =
-      props.exclude && props.exclude.length
-        ? props.exclude.indexOf(this.RECENT_CATEGORY.id) > -1
+      this.props.exclude && this.props.exclude.length
+        ? this.props.exclude.indexOf(this.RECENT_CATEGORY.id) > -1
         : false
     if (includeRecent && !excludeRecent) {
       this.hideRecent = false
