@@ -191,6 +191,7 @@ export default class NimblePicker extends React.PureComponent {
 
     this.categories.unshift(this.SEARCH_CATEGORY)
 
+    this.completeConstructor = this.completeConstructor.bind(this)
     this.setAnchorsRef = this.setAnchorsRef.bind(this)
     this.handleAnchorClick = this.handleAnchorClick.bind(this)
     this.setSearchRef = this.setSearchRef.bind(this)
